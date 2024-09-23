@@ -1,4 +1,4 @@
-name: Flutter CI
+name: Deploy Flutter Web to GitHub Pages
 
 on:
   push:
@@ -6,36 +6,36 @@ on:
       - main
   pull_request:
     branches:
-      - main
+      - main  # Change this to your main branch if necessary
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+    # Vérifier le code source depuis le dépôt
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    # Installer Flutter
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.24.2'
 
-#    - name: Ensure Flutter channel stable
-#      run: flutter channel stable
+    # Afficher la version de Flutter pour confirmation
+    - name: Flutter Version
+      run: flutter --version
 
     - name: Flutter Pub Get
       run: flutter pub get
 
-    - name: Flutter Clean
-      run: flutter clean
+    # Construire l'application Flutter pour le Web
+    - name: Build Flutter Web
+      run: flutter build web --release
 
-    - name: Run Flutter Tests
-      run: flutter test
-
-        # Deploy to GitHub Pages
+    # Déployer sur GitHub Pages
     - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/main'  # Only deploy on the main branch
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
