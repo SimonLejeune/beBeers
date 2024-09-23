@@ -21,8 +21,8 @@ jobs:
       with:
         flutter-version: '2.18.6'
 
-    - name: Ensure Flutter channel stable
-      run: flutter channel stable
+#    - name: Ensure Flutter channel stable
+#      run: flutter channel stable
 
     - name: Flutter Pub Get
       run: flutter pub get
